@@ -222,13 +222,6 @@ const learningPath = [
 
 const timelineList = document.querySelector("#timelineList");
 const controls = document.querySelectorAll(".control");
-const detailEra = document.querySelector("#detailEra");
-const detailTitle = document.querySelector("#detailTitle");
-const detailSummary = document.querySelector("#detailSummary");
-const detailProblem = document.querySelector("#detailProblem");
-const detailSolution = document.querySelector("#detailSolution");
-const detailNext = document.querySelector("#detailNext");
-const detailPlayers = document.querySelector("#detailPlayers");
 
 function makeTag(text) {
   return `<span class="tag">${text}</span>`;
@@ -238,10 +231,10 @@ function renderTimeline() {
   timelineList.innerHTML = eras
     .map(
       (era, index) => `
-        <li>
+        <li class="timeline-item ${index === 0 ? "is-open" : ""}" data-category="${era.category}" style="--accent:${era.accent}">
           <button class="timeline-card ${index === 0 ? "is-active" : ""}" type="button"
-            data-id="${era.id}" data-category="${era.category}" style="--accent:${era.accent}"
-            aria-pressed="${index === 0 ? "true" : "false"}">
+            data-id="${era.id}" aria-expanded="${index === 0 ? "true" : "false"}"
+            aria-controls="era-panel-${era.id}">
             <span class="timeline-card__date">
               <span>Era ${String(index + 1).padStart(2, "0")}</span>
               <span>${era.era}</span>
@@ -251,37 +244,57 @@ function renderTimeline() {
               <span class="timeline-card__summary">${era.summary}</span>
               <span class="tag-row">${makeTag(era.label)}${makeTag(era.players[0])}${makeTag(era.players[1])}</span>
             </span>
+            <span class="accordion-icon" aria-hidden="true"></span>
           </button>
+          <div class="accordion-panel" id="era-panel-${era.id}" ${index === 0 ? "" : "hidden"}>
+            <p class="accordion-lead">${era.principle}</p>
+            <div class="accordion-grid">
+              <article>
+                <span>핵심 문제</span>
+                <p>${era.problem}</p>
+              </article>
+              <article>
+                <span>해결 방법</span>
+                <p>${era.solution}</p>
+              </article>
+              <article>
+                <span>다음 병목</span>
+                <p>${era.next}</p>
+              </article>
+              <article>
+                <span>부상한 기업·인물</span>
+                <p>${era.players.join(" · ")}</p>
+              </article>
+            </div>
+          </div>
         </li>
       `,
     )
     .join("");
 
   timelineList.querySelectorAll(".timeline-card").forEach((card) => {
-    card.addEventListener("click", () => selectEra(card.dataset.id, true));
+    card.addEventListener("click", () => toggleEra(card.dataset.id, true));
   });
 }
 
-function selectEra(id, userInitiated = false) {
-  const era = eras.find((item) => item.id === id) || eras[0];
-  const index = eras.findIndex((item) => item.id === era.id);
+function toggleEra(id, userInitiated = false) {
+  const selectedItem = timelineList.querySelector(`.timeline-card[data-id="${id}"]`)?.closest(".timeline-item");
+  if (!selectedItem) return;
+  const willOpen = !selectedItem.classList.contains("is-open");
 
-  timelineList.querySelectorAll(".timeline-card").forEach((card) => {
-    const active = card.dataset.id === era.id;
-    card.classList.toggle("is-active", active);
-    card.setAttribute("aria-pressed", String(active));
+  timelineList.querySelectorAll(".timeline-item").forEach((item) => {
+    const card = item.querySelector(".timeline-card");
+    const panel = item.querySelector(".accordion-panel");
+    const isSelected = item === selectedItem;
+    const open = isSelected ? willOpen : false;
+    item.classList.toggle("is-open", open);
+    card.classList.toggle("is-active", open);
+    card.setAttribute("aria-expanded", String(open));
+    panel.hidden = !open;
   });
 
-  detailEra.textContent = `Era ${String(index + 1).padStart(2, "0")} / ${era.era}`;
-  detailTitle.textContent = era.title;
-  detailSummary.textContent = `${era.summary} ${era.principle}`;
-  detailProblem.textContent = era.problem;
-  detailSolution.textContent = era.solution;
-  detailNext.textContent = era.next;
-  detailPlayers.textContent = era.players.join(" · ");
-
   if (userInitiated && window.matchMedia("(max-width: 980px)").matches) {
-    document.querySelector(".detail-panel").scrollIntoView({
+    selectedItem.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -295,13 +308,15 @@ function applyFilter(filter) {
     button.setAttribute("aria-pressed", String(active));
   });
 
-  const cards = [...timelineList.querySelectorAll(".timeline-card")];
-  cards.forEach((card) => {
-    card.hidden = filter !== "all" && card.dataset.category !== filter;
+  const items = [...timelineList.querySelectorAll(".timeline-item")];
+  items.forEach((item) => {
+    item.hidden = filter !== "all" && item.dataset.category !== filter;
   });
 
-  const visible = cards.find((card) => !card.hidden);
-  if (visible) selectEra(visible.dataset.id);
+  const visible = items.find((item) => !item.hidden);
+  if (visible && !visible.classList.contains("is-open")) {
+    toggleEra(visible.querySelector(".timeline-card").dataset.id);
+  }
 }
 
 function renderRadar() {
