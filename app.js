@@ -258,11 +258,11 @@ function renderTimeline() {
     .join("");
 
   timelineList.querySelectorAll(".timeline-card").forEach((card) => {
-    card.addEventListener("click", () => selectEra(card.dataset.id));
+    card.addEventListener("click", () => selectEra(card.dataset.id, true));
   });
 }
 
-function selectEra(id) {
+function selectEra(id, userInitiated = false) {
   const era = eras.find((item) => item.id === id) || eras[0];
   const index = eras.findIndex((item) => item.id === era.id);
 
@@ -279,6 +279,13 @@ function selectEra(id) {
   detailSolution.textContent = era.solution;
   detailNext.textContent = era.next;
   detailPlayers.textContent = era.players.join(" · ");
+
+  if (userInitiated && window.matchMedia("(max-width: 980px)").matches) {
+    document.querySelector(".detail-panel").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
 }
 
 function applyFilter(filter) {
