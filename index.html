@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="반도체와 AI 발전 과정에서 반복된 문제, 해결책, 새 병목, 주요 기업과 인물을 한눈에 보는 동적 인포그래픽"
+    />
+    <title>반도체와 AI 발전 흐름</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__image" role="img" aria-label="웨이퍼와 AI 반도체 패키지 배경"></div>
+      <nav class="topbar" aria-label="주요 보기">
+        <a class="brand" href="#top" aria-label="처음으로">Si x AI</a>
+        <div class="topbar__links">
+          <a href="#timeline">흐름</a>
+          <a href="#bottlenecks">병목</a>
+          <a href="#players">기업</a>
+        </div>
+      </nav>
+      <section class="hero__content" id="top">
+        <p class="eyebrow">Semiconductor x AI Infographic</p>
+        <h1>문제가 바뀔 때마다 반도체 산업의 주도권도 바뀐다</h1>
+        <p class="hero__copy">
+          밴드갭과 도핑에서 시작한 스위치 기술은 미세화, 병렬 연산, HBM, 네트워크,
+          전력과 냉각으로 병목을 옮겨왔다. AI는 그 변화를 다시 가속하고 있다.
+        </p>
+        <div class="hero__stats" aria-label="요약 지표">
+          <div>
+            <strong id="eraCount">8</strong>
+            <span>시대 구간</span>
+          </div>
+          <div>
+            <strong id="bottleneckCount">6</strong>
+            <span>핵심 병목</span>
+          </div>
+          <div>
+            <strong id="playerCount">18+</strong>
+            <span>기업과 인물</span>
+          </div>
+        </div>
+        <div class="hero-flow" aria-label="핵심 발전 흐름">
+          <span>스위치</span>
+          <span>CMOS</span>
+          <span>미세화</span>
+          <span>GPU</span>
+          <span>HBM</span>
+          <span>추론</span>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section" id="timeline">
+        <div class="section__heading">
+          <p class="eyebrow">Evolution Map</p>
+          <h2>문제 해결의 연쇄</h2>
+          <p>
+            각 단계는 이전 병목을 해결하지만, 더 큰 집적도와 더 큰 AI 워크로드가 다음 병목을 만든다.
+          </p>
+        </div>
+
+        <div class="controls" aria-label="시대 필터">
+          <button class="control is-active" type="button" data-filter="all">전체</button>
+          <button class="control" type="button" data-filter="device">소자</button>
+          <button class="control" type="button" data-filter="manufacturing">제조</button>
+          <button class="control" type="button" data-filter="compute">연산</button>
+          <button class="control" type="button" data-filter="memory">메모리</button>
+          <button class="control" type="button" data-filter="system">시스템</button>
+        </div>
+
+        <div class="timeline-layout">
+          <ol class="timeline" id="timelineList" aria-label="반도체와 AI 발전 타임라인"></ol>
+          <aside class="detail-panel" aria-live="polite">
+            <p class="panel-kicker" id="detailEra">Era 01</p>
+            <h3 id="detailTitle">반도체 스위치의 탄생</h3>
+            <p id="detailSummary"></p>
+
+            <div class="detail-grid">
+              <article>
+                <span>핵심 문제</span>
+                <p id="detailProblem"></p>
+              </article>
+              <article>
+                <span>해결 방법</span>
+                <p id="detailSolution"></p>
+              </article>
+              <article>
+                <span>다음 병목</span>
+                <p id="detailNext"></p>
+              </article>
+              <article>
+                <span>부상한 축</span>
+                <p id="detailPlayers"></p>
+              </article>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section section--split" id="bottlenecks">
+        <div class="section__heading">
+          <p class="eyebrow">Bottleneck Radar</p>
+          <h2>AI 반도체 병목 지도</h2>
+          <p>
+            현대 AI 반도체 경쟁은 하나의 칩 성능이 아니라 연산, 메모리, 통신, 전력, 열,
+            제조를 동시에 다루는 능력으로 이동했다.
+          </p>
+        </div>
+
+        <div class="radar-wrap">
+          <div class="radar" id="radar" aria-label="병목별 강도 시각화"></div>
+          <div class="bottleneck-list" id="bottleneckList"></div>
+        </div>
+      </section>
+
+      <section class="section" id="players">
+        <div class="section__heading">
+          <p class="eyebrow">Strategic Position</p>
+          <h2>누가 어떤 병목을 푸는가</h2>
+          <p>
+            기업과 인물의 부상은 기술 원리 자체보다 특정 병목을 가장 먼저 산업화한 지점에서 발생했다.
+          </p>
+        </div>
+
+        <div class="player-grid" id="playerGrid"></div>
+      </section>
+
+      <section class="section section--compact">
+        <div class="section__heading">
+          <p class="eyebrow">Learning Path</p>
+          <h2>읽는 순서</h2>
+        </div>
+        <div class="learning" id="learningPath"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
