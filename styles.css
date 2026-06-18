@@ -546,6 +546,7 @@ h1 {
 
   .detail-panel {
     position: static;
+    order: -1;
   }
 
   .player-grid {
@@ -558,14 +559,42 @@ h1 {
 }
 
 @media (max-width: 680px) {
+  body {
+    background: #0d1117;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero__image {
+    background:
+      linear-gradient(180deg, rgba(11, 16, 22, 0.9) 0%, rgba(11, 16, 22, 0.82) 58%, rgba(13, 17, 23, 0.98) 100%),
+      url("assets/chip-wafer-hero.png") center right / cover no-repeat;
+  }
+
   .topbar {
     width: min(100% - 28px, 1180px);
     min-height: 64px;
+    align-items: flex-start;
+    padding-top: 12px;
+  }
+
+  .brand {
+    min-height: 34px;
+    font-size: 0.95rem;
+  }
+
+  .topbar__links {
+    gap: 3px;
+    padding: 4px;
+    border-radius: 8px;
   }
 
   .topbar__links a {
-    padding: 0 10px;
-    font-size: 0.92rem;
+    min-height: 30px;
+    padding: 0 8px;
+    font-size: 0.84rem;
   }
 
   .hero__content,
@@ -573,31 +602,221 @@ h1 {
     width: min(100% - 28px, 1180px);
   }
 
+  .hero__content {
+    padding: 36px 0 42px;
+  }
+
+  .eyebrow {
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+  }
+
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.08;
+  }
+
+  .hero__copy {
+    margin-top: 18px;
+    font-size: 0.98rem;
+    line-height: 1.64;
+  }
+
   .hero__stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 22px;
+  }
+
+  .hero__stats div {
+    min-height: 72px;
+    padding: 10px 8px;
+  }
+
+  .hero__stats strong {
+    font-size: 1.35rem;
+  }
+
+  .hero__stats span {
+    font-size: 0.74rem;
+    line-height: 1.25;
   }
 
   .hero-flow {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .hero-flow span {
+    min-height: 36px;
+    font-size: 0.82rem;
+  }
+
+  .section {
+    padding: 42px 0;
+  }
+
+  .section__heading {
+    margin-bottom: 18px;
+  }
+
+  .section__heading h2 {
+    font-size: 1.7rem;
+    line-height: 1.16;
+  }
+
+  .section__heading p:not(.eyebrow) {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    line-height: 1.62;
+  }
+
+  .controls {
+    flex-wrap: nowrap;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 0 0 8px;
+    margin-bottom: 14px;
+    scrollbar-width: none;
+  }
+
+  .controls::-webkit-scrollbar {
+    display: none;
+  }
+
+  .control {
+    flex: 0 0 auto;
+    min-height: 38px;
+    padding: 0 13px;
+    font-size: 0.9rem;
   }
 
   .timeline-card {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 8px;
+    min-height: 0;
+    padding: 15px 15px 15px 17px;
   }
 
   .timeline-card__date {
     flex-direction: row;
     justify-content: space-between;
+    gap: 10px;
+    font-size: 0.86rem;
+  }
+
+  .timeline-card__date span:first-child {
+    font-size: 0.7rem;
+  }
+
+  .timeline-card__title {
+    font-size: 1.08rem;
+    line-height: 1.34;
+  }
+
+  .timeline-card__summary {
+    margin-top: 7px;
+    font-size: 0.9rem;
+    line-height: 1.56;
+  }
+
+  .tag-row {
+    margin-top: 10px;
+  }
+
+  .tag {
+    min-height: 24px;
+    padding: 0 8px;
+    font-size: 0.72rem;
+  }
+
+  .detail-panel {
+    padding: 16px;
+    box-shadow: 0 14px 42px rgba(0, 0, 0, 0.28);
+  }
+
+  .detail-panel h3 {
+    font-size: 1.35rem;
+    line-height: 1.28;
+  }
+
+  #detailSummary {
+    margin: 10px 0 14px;
+    font-size: 0.94rem;
+    line-height: 1.62;
+  }
+
+  .detail-grid {
+    gap: 8px;
+  }
+
+  .detail-grid article {
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .detail-grid p {
+    font-size: 0.9rem;
+    line-height: 1.55;
   }
 
   .radar {
-    min-height: 330px;
+    min-height: 0;
+    padding: 14px 0;
+  }
+
+  .radar svg {
+    width: min(100%, 320px);
   }
 
   .player-grid,
   .learning {
     grid-template-columns: 1fr;
+  }
+
+  .bottleneck-list {
+    gap: 8px;
+  }
+
+  .bottleneck-item,
+  .player-card,
+  .learning-step {
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .bottleneck-item h3,
+  .player-card h3 {
+    font-size: 1rem;
+  }
+
+  .bottleneck-item p,
+  .player-card p,
+  .learning-step p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__stats div {
+    min-height: 58px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .hero-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .radar {
+    display: none;
   }
 }
 
