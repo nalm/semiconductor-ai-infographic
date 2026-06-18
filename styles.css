@@ -44,7 +44,7 @@ button {
 }
 
 .hero {
-  min-height: 78vh;
+  min-height: clamp(620px, 68vh, 760px);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -115,7 +115,7 @@ button {
 .hero__content {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
-  padding: clamp(52px, 9vh, 110px) 0 70px;
+  padding: clamp(46px, 8vh, 96px) 0 52px;
 }
 
 .eyebrow {
@@ -204,6 +204,10 @@ h1 {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
   padding: clamp(56px, 9vw, 104px) 0;
+}
+
+#timeline {
+  padding-top: clamp(32px, 4vw, 56px);
 }
 
 .section + .section {
